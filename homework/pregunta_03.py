@@ -15,3 +15,26 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+    ruta = "files/input/data.csv"
+
+    # Diccionario para sumar los valores por letra
+    sumas = {}
+
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            if len(columnas) > 1:
+                letra = columnas[0]
+                try:
+                    valor = int(columnas[1])
+                    if letra in sumas:
+                        sumas[letra] += valor
+                    else:
+                        sumas[letra] = valor
+                except ValueError:
+                    continue
+
+    # Convertir a lista de tuplas y ordenar alfabéticamente
+    resultado = sorted(sumas.items())
+
+    return resultado

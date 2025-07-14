@@ -20,3 +20,35 @@ def pregunta_10():
 
 
     """
+    # Ruta del archivo de datos
+    ruta = "files/input/data.csv"
+    
+    # Lista para almacenar los resultados
+    resultado = []
+    
+    # Leer el archivo línea por línea
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            # Separar las columnas por tabulador
+            columnas = linea.strip().split("\t")
+            
+            # Verificar que la línea tenga al menos 5 columnas
+            if len(columnas) >= 5:
+                letra = columnas[0]      # Primera columna (letra)
+                columna_4 = columnas[3]  # Cuarta columna (índice 3)
+                columna_5 = columnas[4]  # Quinta columna (índice 4)
+                
+                # Contar elementos en columna 4
+                # Los elementos están separados por comas
+                elementos_col4 = columna_4.split(",")
+                cantidad_col4 = len(elementos_col4)
+                
+                # Contar elementos en columna 5
+                # Los elementos son pares clave:valor separados por comas
+                elementos_col5 = columna_5.split(",")
+                cantidad_col5 = len(elementos_col5)
+                
+                # Agregar tupla (letra, cantidad_col4, cantidad_col5)
+                resultado.append((letra, cantidad_col4, cantidad_col5))
+    
+    return resultado

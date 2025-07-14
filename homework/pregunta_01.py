@@ -14,3 +14,17 @@ def pregunta_01():
     214
 
     """
+
+    ruta = "files/input/data.csv"
+
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        suma = 0
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            if len(columnas) > 1:
+                try:
+                    valor = int(columnas[1])
+                    suma += valor
+                except ValueError:
+                    continue
+        return suma

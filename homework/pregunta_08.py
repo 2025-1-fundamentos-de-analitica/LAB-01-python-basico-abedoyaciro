@@ -27,3 +27,46 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    # Ruta del archivo de datos
+    ruta = "files/input/data.csv"
+    
+    # Diccionario para asociar valores de columna 2 con conjuntos de letras
+    # Usar conjuntos (set) para evitar duplicados
+    letras_por_valor = {}
+    
+    # Leer el archivo línea por línea
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            # Separar las columnas por tabulador
+            columnas = linea.strip().split("\t")
+            
+            # Verificar que la línea tenga al menos 2 columnas
+            if len(columnas) >= 2:
+                letra = columnas[0]  # Primera columna (letra)
+                
+                try:
+                    # Convertir el valor de la segunda columna a entero
+                    valor = int(columnas[1])
+                    
+                    # Agregar la letra al conjunto del valor correspondiente
+                    if valor in letras_por_valor:
+                        letras_por_valor[valor].add(letra)
+                    else:
+                        letras_por_valor[valor] = {letra}  # Crear nuevo conjunto
+                        
+                except ValueError:
+                    # Ignorar líneas donde la columna 2 no sea un número
+                    continue
+    
+    # Convertir a lista de tuplas y ordenar por valor
+    resultado = []
+    for valor in sorted(letras_por_valor.keys()):
+        letras_conjunto = letras_por_valor[valor]
+        
+        # Convertir conjunto a lista ordenada (sin duplicados)
+        letras_ordenadas = sorted(list(letras_conjunto))
+        
+        # Agregar tupla (valor, lista_de_letras_ordenadas_sin_duplicados)
+        resultado.append((valor, letras_ordenadas))
+    
+    return resultado

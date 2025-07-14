@@ -26,3 +26,36 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    # Ruta del archivo de datos
+    ruta = "files/input/data.csv"
+    
+    # Diccionario para contar registros por mes
+    contador_meses = {}
+    
+    # Leer el archivo línea por línea
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            # Separar las columnas por tabulador
+            columnas = linea.strip().split("\t")
+            
+            # Verificar que la línea tenga al menos 3 columnas
+            if len(columnas) >= 3:
+                # Extraer la fecha (columna 2, índice 2)
+                fecha = columnas[2]
+                
+                # Extraer el mes de la fecha (formato YYYY-MM-DD)
+                # Dividir por '-' y tomar el segundo elemento (mes)
+                partes_fecha = fecha.split("-")
+                if len(partes_fecha) >= 2:
+                    mes = partes_fecha[1]  # Obtener el mes en formato MM
+                    
+                    # Contar las ocurrencias de cada mes
+                    if mes in contador_meses:
+                        contador_meses[mes] += 1
+                    else:
+                        contador_meses[mes] = 1
+    
+    # Convertir a lista de tuplas y ordenar por mes
+    resultado = sorted(contador_meses.items())
+    
+    return resultado
